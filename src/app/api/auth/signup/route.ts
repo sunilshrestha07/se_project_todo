@@ -4,8 +4,10 @@ import {User} from '@/models/user';
 import {signupSchema} from '@/validation/auth';
 import {generateToken} from '@/lib/jwt';
 import bcrypt from 'bcryptjs';
+import dbConnect from '@/lib/db';
 
 export async function POST(req: NextRequest) {
+  await dbConnect();
   try {
     const body = await req.json();
     const {email, password} = signupSchema.parse(body);
