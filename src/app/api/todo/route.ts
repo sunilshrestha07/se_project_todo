@@ -4,8 +4,10 @@ import '@/lib/db';
 import {Todo} from '@/models/todo';
 import {createTodoSchema} from '@/validation/todo';
 import {authenticateUser, AuthenticatedRequest} from '@/middleware/auth';
+import dbConnect from '@/lib/db';
 
 export async function GET(req: NextRequest) {
+  await dbConnect();
   try {
     // Authenticate user
     const authError = await authenticateUser(req);
@@ -21,6 +23,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  await dbConnect();
   try {
     // Authenticate user
     const authError = await authenticateUser(req);

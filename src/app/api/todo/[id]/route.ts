@@ -4,8 +4,10 @@ import {Todo} from '@/models/todo';
 import {updateTodoSchema} from '@/validation/todo';
 import {authenticateUser, AuthenticatedRequest} from '@/middleware/auth';
 import mongoose from 'mongoose';
+import dbConnect from '@/lib/db';
 
 export async function GET(req: NextRequest, context: {params: Promise<{id: string}>}) {
+  await dbConnect();
   try {
     // Authenticate user
     const authError = await authenticateUser(req);
@@ -26,6 +28,7 @@ export async function GET(req: NextRequest, context: {params: Promise<{id: strin
 }
 
 export async function PUT(req: NextRequest, context: {params: Promise<{id: string}>}) {
+  await dbConnect();
   try {
     // Authenticate user
     const authError = await authenticateUser(req);
